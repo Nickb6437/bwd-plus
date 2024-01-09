@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "bwd-plus/page-header",
+  "title": "Archive Page Header",
+  "description": "Page Header for the category archive page",
+  "category": "text",
+  "keywords": [
+    "header",
+    "page header",
+    "archive page header"
+  ],
+  "version": "1.0.0",
+  "textdomain": "bwd-plus",
+  "editorScript": "file:./index.js",
+  "style": "file:./index.css",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "default": ""
+    },
+    "showCategory": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

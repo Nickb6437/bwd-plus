@@ -1,0 +1,83 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "bwd-plus/team-member",
+  "title": "Team Member",
+  "description": "A block to display a team member",
+  "category": "text",
+  "keywords": [
+    "team",
+    "member"
+  ],
+  "version": "1.0.0",
+  "textdomain": "bwd-plus",
+  "attributes": {
+    "name": {
+      "type": "string",
+      "source": "html",
+      "selector": ".author-meta strong"
+    },
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".author-meta span"
+    },
+    "bio": {
+      "type": "string",
+      "source": "html",
+      "selector": ".member-bio p"
+    },
+    "imgID": {
+      "type": "number",
+      "default": 0
+    },
+    "imgAlt": {
+      "type": "string",
+      "default": "",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "alt"
+    },
+    "imgURL": {
+      "type": "string",
+      "default": "",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "src"
+    },
+    "socialHandles": {
+      "type": "array",
+      "default": [
+        {
+          "icon": "facebook",
+          "url": "https://www.facebook.com/"
+        },
+        {
+          "icon": "instagram",
+          "url": "https://www.instagram.com/"
+        }
+      ],
+      "source": "query",
+      "selector": ".social-links a",
+      "query": {
+        "icon": {
+          "source": "attribute",
+          "attribute": "data-icon"
+        },
+        "url": {
+          "source": "attribute",
+          "attribute": "href"
+        }
+      }
+    },
+    "imageShape": {
+      "type": "string",
+      "default": "heaxagon"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./index.css",
+  "usesContext": [
+    "bwd-plus/image-shape"
+  ]
+}

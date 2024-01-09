@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "bwd-plus/recipe-summary",
+  "title": "Recipe Summary",
+  "description": "A block that displays a summary of a recipe.",
+  "category": "text",
+  "keywords": [
+    "recipe",
+    "summary"
+  ],
+  "version": "1.0.0",
+  "textdomain": "bwd-plus",
+  "editorScript": "file:./index.js",
+  "style": "file:./index.css",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "prepTime": {
+      "type": "string"
+    },
+    "cookTime": {
+      "type": "string"
+    },
+    "course": {
+      "type": "string"
+    }
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

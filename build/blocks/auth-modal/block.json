@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "bwd-plus/auth-modal",
+  "title": "Auth Modal",
+  "description": "A modal for logging in and registering",
+  "category": "text",
+  "keywords": [
+    "modal",
+    "login",
+    "register"
+  ],
+  "version": "1.0.0",
+  "textdomain": "bwd-plus",
+  "editorScript": "file:./index.js",
+  "style": "file:./index.css",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "showRegister": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

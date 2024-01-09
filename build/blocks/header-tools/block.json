@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "bwd-plus/header-tools",
+  "title": "Header Tools",
+  "description": "Adds a signup / sign in link to the header, with avatar and my account.",
+  "category": "text",
+  "keywords": [
+    "header",
+    "tools",
+    "signup",
+    "sign in",
+    "my account"
+  ],
+  "version": "1.0.0",
+  "textdomain": "bwd-plus",
+  "editorScript": "file:./index.js",
+  "style": "file:./index.css",
+  "attributes": {
+    "showAuth": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}
