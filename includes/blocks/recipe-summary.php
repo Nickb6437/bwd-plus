@@ -27,7 +27,7 @@
       $postId, $userID
     ));
 
-    ob_clean();
+    ob_start();
     ?>
 
       <div class="wp-block-bwd-plus-recipe-summary">

@@ -41,6 +41,12 @@
         'args' => [
           'render_callback' => 'bwd_plus_popular_recipes_render_cb'
         ]
+      ],
+      [
+        'name' => 'daily-recipe',
+        'args' => [
+          'render_callback' => 'bwd_plus_daily_recipe_render_cb'
+        ]
       ]
     ];
 

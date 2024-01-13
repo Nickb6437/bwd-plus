@@ -45,10 +45,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/blocks/popular-recipes/main.scss":
-/*!**********************************************!*\
-  !*** ./src/blocks/popular-recipes/main.scss ***!
-  \**********************************************/
+/***/ "./src/blocks/daily-recipe/main.scss":
+/*!*******************************************!*\
+  !*** ./src/blocks/daily-recipe/main.scss ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -64,6 +64,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((module) => {
 
 module.exports = window["React"];
+
+/***/ }),
+
+/***/ "@wordpress/api-fetch":
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["apiFetch"];
 
 /***/ }),
 
@@ -94,16 +104,6 @@ module.exports = window["wp"]["blocks"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["components"];
-
-/***/ }),
-
-/***/ "@wordpress/data":
-/*!******************************!*\
-  !*** external ["wp","data"] ***!
-  \******************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["data"];
 
 /***/ }),
 
@@ -198,9 +198,9 @@ module.exports = window["wp"]["i18n"];
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-/*!*********************************************!*\
-  !*** ./src/blocks/popular-recipes/index.js ***!
-  \*********************************************/
+/*!******************************************!*\
+  !*** ./src/blocks/daily-recipe/index.js ***!
+  \******************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -210,14 +210,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _icons_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../icons.js */ "./src/icons.js");
-/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./main.scss */ "./src/blocks/popular-recipes/main.scss");
+/* harmony import */ var _main_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./main.scss */ "./src/blocks/daily-recipe/main.scss");
 
 
 
@@ -227,66 +227,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)('bwd-plus/popular-recipes', {
-  icon: _icons_js__WEBPACK_IMPORTED_MODULE_7__["default"].primary,
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)('bwd-plus/daily-recipe', {
+  icon: {
+    src: _icons_js__WEBPACK_IMPORTED_MODULE_7__["default"].primary
+  },
   edit({
     attributes,
     setAttributes
   }) {
     const {
-      title,
-      count,
-      cuisines
+      title
     } = attributes;
     const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
-    const terms = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useSelect)(select => {
-      return select('core').getEntityRecords('taxonomy', 'cuisine', {
-        per_page: -1
+    const [post, setPost] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useState)({
+      isLoading: true,
+      url: null,
+      img: null,
+      title: null
+    });
+    (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useEffect)(async () => {
+      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default()({
+        path: 'bwd/v1/daily-recipe'
+      });
+      setPost({
+        isLoading: false,
+        ...response
       });
     }, []);
-    const suggestions = {};
-    terms?.forEach(term => {
-      suggestions[term.name] = term;
-    });
-    const cuisineIDs = cuisines.map(term => term.id);
-    console.log(cuisineIDs);
-    const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useSelect)(select => {
-      return select("core").getEntityRecords("postType", "recipe", {
-        per_page: count,
-        _embed: true,
-        cuisine: cuisineIDs,
-        order: "desc",
-        orderByRating: 1
-      });
-    }, [count, cuisineIDs]);
-    console.log(posts);
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Settings', 'bwd-plus')
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.QueryControls, {
-      numberOfItems: count,
-      minItems: 1,
-      maxItems: 10,
-      onNumberOfItemsChange: count => setAttributes({
-        count
-      }),
-      categorySuggestions: suggestions,
-      onCategoryChange: newTerms => {
-        const newCuisines = [];
-        newTerms.forEach(cuisine => {
-          if (typeof cuisine === 'object') {
-            return newCuisines.push(cuisine);
-          }
-          const cuisineTerm = terms?.find(term => term.name === cuisine);
-          if (cuisineTerm) {
-            newCuisines.push(cuisineTerm);
-          }
-        });
-        setAttributes({
-          cuisines: newCuisines
-        });
-      },
-      selectedCategories: cuisines
-    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       ...blockProps
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
       tagName: "h6",
@@ -296,24 +264,11 @@ __webpack_require__.r(__webpack_exports__);
         title
       }),
       placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Title', 'bwd-plus')
-    }), posts?.map(post => {
-      const featuredImage = post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'].length > 0 && post._embedded['wp:featuredmedia'][0];
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        class: "single-post"
-      }, featuredImage && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-        class: "single-post-image",
-        href: post.link
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-        src: featuredImage.media_details.sizes.thumbnail.source_url,
-        alt: featuredImage.alt_text
-      })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        class: "single-post-detail"
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-        href: post.link
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.RawHTML, null, post.title.rendered)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "by ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-        href: post.link
-      }, post._embedded.author[0].name))));
-    })));
+    }), post.isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__.Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: post.url
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: post.img
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, post.title)));
   }
 });
 })();
