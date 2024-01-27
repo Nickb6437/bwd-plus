@@ -41,8 +41,6 @@ registerBlockType('bwd-plus/popular-recipes', {
     });
 
     const cuisineIDs = cuisines.map((term) => term.id);
-
-    console.log(cuisineIDs);
     
     const posts = useSelect(
       (select) => {
@@ -56,8 +54,6 @@ registerBlockType('bwd-plus/popular-recipes', {
       },
       [count, cuisineIDs]
     );
-
-    console.log(posts);
 
     return (
       <>

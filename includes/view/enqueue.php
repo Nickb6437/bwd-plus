@@ -11,4 +11,8 @@
       "const bwdAuthRest = {$authURLS}",
       'before'
     );
+
+    wp_enqueue_style(
+      'bwd-plus-editor'
+    );
   }

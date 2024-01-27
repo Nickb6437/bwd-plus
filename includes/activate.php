@@ -23,4 +23,17 @@
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php'); // include upgrade.php core file
     dbDelta($stm); // wp query to check if table exisits if not create table
+
+    $options = get_option('bwd_plus_options'); // get plugin options
+
+    if(!$options) {
+      $opts = [
+        'og_title' => get_bloginfo('name'),
+        'og_image' => '',
+        'og_description' => get_bloginfo('description'),
+        'enable_og' => '1',
+      ];
+
+      add_option('bwd_plus_options', $opts);
+    }
   }

@@ -1,0 +1,1 @@
+{"version":3,"file":"admin/index.css","mappings":";;;AAAA;EACE,cAAc;EACd,mBAAmB;EACnB,kBAAkB;AACpB,C","sources":["webpack://bwd-plus/./src/admin/main.css"],"sourcesContent":["#og-img-preview {\r\n  display: block;\r\n  margin: 0 0 1.25rem;\r\n  max-width: 37.5rem;\r\n}"],"names":[],"sourceRoot":""}
